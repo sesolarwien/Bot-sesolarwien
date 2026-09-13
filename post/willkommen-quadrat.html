@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>PHONETASTIC – Herzlich willkommen (1080 × 1080)</title>
+<link rel="stylesheet" href="../fonts.css" />
+<link rel="stylesheet" href="fonts-einladung.css" />
+<link rel="stylesheet" href="elegant.css" />
+<style>
+  .stage { width: 1080px; height: 1080px; padding: 54px 74px 50px; }
+
+  .tick { height: 36px; }
+  .tick--bottom { margin-top: 18px; }
+
+  .tiny { font-size: 18px; letter-spacing: .42em; margin-top: 18px; }
+
+  /* Logo: Zeichen und Schriftzug nebeneinander */
+  .marke { display: flex; align-items: center; gap: 16px; margin-top: 18px; }
+  .marke__zeichen { width: 72px; height: 72px; flex: none; display: block; }
+  .marke__wort {
+    font-size: 62px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .serif { font-size: 54px; margin-top: 20px; }
+  .script { font-size: 164px; margin-top: -6px; }
+
+  .satz { font-size: 24px; color: var(--soft); font-weight: 500; margin-top: 6px; letter-spacing: .02em; }
+  .satz b { color: var(--ink); font-weight: 700; }
+
+  /* Öffnungszeiten – der wichtigste Teil des Posts */
+  .zeiten {
+    margin-top: 22px; padding: 20px 0 22px; width: 100%;
+    border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
+  }
+  .zeiten__label { font-size: 18px; letter-spacing: .3em; text-transform: uppercase; color: var(--grey); font-weight: 700; }
+  .zeiten__uhr {
+    font-size: 68px; font-weight: 800; color: var(--ink); margin-top: 8px; letter-spacing: .01em;
+  }
+  .zeiten__uhr b {
+    font-weight: 800;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .leistungen {
+    margin-top: 20px; font-size: 20px; font-weight: 700; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--ink); line-height: 1.7;
+  }
+  .leistungen i { font-style: normal; color: var(--accent); margin: 0 .12em; }
+  .leistungen b { font-weight: 700; white-space: nowrap; }
+
+  .orn { margin-top: 20px; }
+  .orn i { width: 8px; height: 8px; margin: 0 6px; }
+
+  .addr { margin-top: auto; padding-top: 18px; }
+  .addr p { font-size: 22px; line-height: 1.55; letter-spacing: .04em; }
+  .addr .line { font-size: 19px; }
+  .web { font-size: 32px; display: block; margin-top: 9px; }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="inner">
+
+    <div class="tick"></div>
+
+    <div class="tiny">Neu in Wien-Favoriten</div>
+
+    <div class="marke">
+      <svg class="marke__zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="mk" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+          <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+        </linearGradient></defs>
+        <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#mk)" />
+        <text x="100" y="141" text-anchor="middle" fill="#ffffff"
+              font-family="Poppins" font-weight="900" font-size="124">P</text>
+      </svg>
+      <span class="marke__wort">Phonetastic</span>
+    </div>
+
+    <div class="serif">Herzlich</div>
+    <div class="script">willkommen</div>
+
+    <p class="satz">Unser <b>neuer Laden</b> ist für euch geöffnet.</p>
+
+    <div class="zeiten">
+      <div class="zeiten__label">Täglich geöffnet</div>
+      <div class="zeiten__uhr"><b>9:00 – 19:00 Uhr</b></div>
+    </div>
+
+    <p class="leistungen">
+      <b>Reparatur</b> <i>·</i> <b>Zubehör</b> <i>·</i>
+      <b>An-&nbsp;&amp;&nbsp;Verkauf</b> <i>·</i> <b>SIM-Karten</b>
+    </p>
+
+    <div class="orn"><i></i><i></i><i></i></div>
+
+    <div class="addr">
+      <p><strong>Quellenstraße 111, 1100 Wien</strong> · beim Reumannplatz</p>
+      <p class="line">Telefon 0660 651 12 62</p>
+      <span class="web">phonetastic.at</span>
+    </div>
+
+    <div class="tick tick--bottom"></div>
+
+  </div>
+</div>
+
+</body>
+</html>

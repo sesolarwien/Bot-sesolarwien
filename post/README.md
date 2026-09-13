@@ -56,6 +56,37 @@ Den QR-Code neu bauen (nur nötig, wenn sich die Adresse ändert):
 python3 -c "import segno; segno.make('https://phonetastic.at', error='m').save('qr.svg', scale=10, border=2, dark='#0b1220', light='#ffffff')"
 ```
 
+## Willkommens-Post (nach der Eröffnung)
+
+`phonetastic-willkommen-post.png` (1080 × 1080) und
+`phonetastic-willkommen-story.png` (1080 × 1920) – ohne Datum, dafür mit
+den Öffnungszeiten **täglich 9:00 – 19:00 Uhr**.
+
+> ✨ Herzlich willkommen bei PHONETASTIC!
+>
+> Unser neuer Laden in Wien-Favoriten ist für euch geöffnet –
+> **Quellenstraße 111, 1100 Wien**, direkt beim Reumannplatz.
+>
+> 🕘 **Täglich 9:00 – 19:00 Uhr**
+>
+> Bei uns bekommt ihr:
+> 🔧 Reparatur für Handy, Tablet und Laptop – Display, Akku, Ladebuchse,
+> Rückglas, Kamera, Wasserschaden
+> 🎧 Zubehör aller Art – Hüllen, Panzerglas, Kabel, Ladegeräte,
+> Powerbanks, Kopfhörer
+> 💶 An- & Verkauf
+> 📶 SIM-Karten
+>
+> Diagnose gratis · viele Reparaturen in 30 Minuten · 12 Monate Garantie
+>
+> 📞 0660 651 12 62 · 🌐 phonetastic.at
+>
+> Schaut vorbei – wir freuen uns auf euch!
+>
+> #phonetastic #handyreparatur #favoriten #reumannplatz #wien1100
+> #displaytausch #akkutausch #handyzubehör #simkarten #ankauf
+> #tabletreparatur #laptopreparatur #wien
+
 ## Texte zum Mitposten
 
 ### Instagram / Facebook – im Ton der Einladung

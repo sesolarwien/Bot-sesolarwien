@@ -12,6 +12,9 @@ const JOBS = [
   { file: 'elegant-quadrat.html',  out: 'phonetastic-einladung-post.png',  w: 1080, h: 1080, scale: 1 },
   { file: 'elegant-story.html',    out: 'phonetastic-einladung-story.png', w: 1080, h: 1920, scale: 1 },
   { file: 'elegant-flyer-a4.html', out: 'phonetastic-einladung-flyer-a4.png', w: 1240, h: 1754, scale: 2 },
+  // Willkommens-Post nach der Eröffnung
+  { file: 'willkommen-quadrat.html', out: 'phonetastic-willkommen-post.png',  w: 1080, h: 1080, scale: 1 },
+  { file: 'willkommen-story.html',   out: 'phonetastic-willkommen-story.png', w: 1080, h: 1920, scale: 1 },
 ];
 
 (async () => {
