@@ -9,6 +9,7 @@ Server, alle flach in dasselbe Verzeichnis (keine Unterordner noetig):
 
     index.html  impressum.html  datenschutz.html  fonts.css
     preise.js   kontakt.php     robots.txt        sitemap.xml
+    favicon.ico favicon-96.png  favicon-192.png   apple-touch-icon.png
 """
 
 import os
@@ -59,6 +60,11 @@ for name, pfad in [('preise.js', ('js', 'preise.js')),
                    ('robots.txt', ('robots.txt',)),
                    ('sitemap.xml', ('sitemap.xml',))]:
     schreib(name, lies(*pfad))
+
+# ---- Favicon: Bilddateien unveraendert kopieren ----
+# Google zeigt nur echte Dateien an, keine eingebetteten data:-URLs.
+for name in ('favicon.ico', 'favicon-96.png', 'favicon-192.png', 'apple-touch-icon.png'):
+    shutil.copyfile(os.path.join(WURZEL, 'favicon', name), os.path.join(ZIEL, name))
 
 # ---- Vollversion in einer Datei (nur zur Vorschau, nicht fuer den Server) ----
 vorschau = lies('index.html')

@@ -605,7 +605,12 @@ h1, h2, h3, h4 { color: var(--ink); line-height: 1.2; font-weight: 700; }
 }
 
   </style>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>" />
+  <!-- Echte Dateien, keine data:-URL: Google zeigt eingebettete
+       Favicons nicht an und stellt stattdessen eine Weltkugel dar. -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <!-- Local Business structured data (SEO) -->
   <script type="application/ld+json">

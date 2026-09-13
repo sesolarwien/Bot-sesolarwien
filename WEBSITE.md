@@ -93,10 +93,16 @@ Hochgeladen wird das Paket aus dem Ordner `upload/`. Dort sind CSS und
 müssen:
 
 ```
-index.html      preise.js      kontakt.php      robots.txt      sitemap.xml
+index.html      impressum.html   datenschutz.html   fonts.css
+preise.js       kontakt.php      robots.txt         sitemap.xml
+favicon.ico     favicon-96.png   favicon-192.png    apple-touch-icon.png
 ```
 
-Alle fünf Dateien kommen flach in das Verzeichnis der Domain (über
+Die Favicon-Dateien müssen echte Dateien im Wurzelverzeichnis sein:
+Google zeigt eingebettete `data:`-Favicons nicht an und stellt
+stattdessen eine graue Weltkugel neben das Suchergebnis.
+
+Alle Dateien kommen flach in das Verzeichnis der Domain (über
 [webftp.all-inkl.com](https://webftp.all-inkl.com) oder FileZilla). Eine
 eventuell vorhandene `index.htm` von All-Inkl löschen, sonst wird sie
 statt der eigenen Startseite ausgeliefert.
