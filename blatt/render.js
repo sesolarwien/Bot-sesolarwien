@@ -39,7 +39,8 @@ const path = require('path');
   await pdf.waitForTimeout(400);
   await pdf.pdf({
     path: path.join(__dirname, 'phonetastic-email-blatt.pdf'),
-    width: '1754px', height: '1240px', printBackground: true,
+    format: 'A4', landscape: true, preferCSSPageSize: true,
+    printBackground: true,
     margin: { top: 0, right: 0, bottom: 0, left: 0 },
   });
 

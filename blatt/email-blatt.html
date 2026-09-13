@@ -5,8 +5,20 @@
 <title>PHONETASTIC – Kopie-Blatt A4 quer</title>
 <link rel="stylesheet" href="../fonts.css" />
 <style>
+  /* Beim Drucken gilt genau eine A4-Seite quer, ohne Rand */
+  @page { size: A4 landscape; margin: 0; }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Poppins', system-ui, sans-serif; background: #b9bec4; }
+
+  /* Die Gestaltung ist 1754 × 1240 px groß – das ist A4 quer bei 150 dpi.
+     Eine A4-Seite misst im Druck aber 1122,5 × 793,7 CSS-Pixel (96 dpi).
+     Ohne diese Verkleinerung wäre die Seite 464 mm breit und der Drucker
+     verteilt das Blatt auf zwei Seiten. */
+  @media print {
+    html, body { width: 297mm; height: 210mm; overflow: hidden; background: #fff; }
+    .blatt { transform: scale(0.639977); transform-origin: top left; }
+  }
 
   /* A4 quer bei 150 dpi, wird mit Faktor 2 gerendert → 300 dpi.
      Nur Schwarz auf Weiß: bleibt auf jedem Kopierer scharf. */
