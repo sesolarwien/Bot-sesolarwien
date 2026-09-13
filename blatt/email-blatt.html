@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>PHONETASTIC – E-Mail-Blatt A4</title>
+<link rel="stylesheet" href="../fonts.css" />
+<style>
+  :root {
+    --grad: linear-gradient(100deg, #22c55e 0%, #34d399 30%, #22d3ee 60%, #38bdf8 100%);
+    --ink: #000000;
+    --grey: #6b7280;
+    --line: #d7dbe0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', system-ui, sans-serif; background: #b9bec4; }
+
+  /* A4 hoch bei 150 dpi, wird mit Faktor 2 gerendert → 300 dpi.
+     Weißer Grund und schwarze Schrift: So bleibt das Blatt auch auf
+     einem Schwarz-Weiß-Kopierer scharf und kostet kaum Toner. */
+  .blatt {
+    width: 1240px; height: 1754px; background: #ffffff;
+    padding: 120px 100px 96px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .blatt > * { flex: none; }
+
+  /* ---------- Kopf: Logo ---------- */
+  .marke { display: flex; align-items: center; gap: 22px; }
+  .marke__zeichen { width: 102px; height: 102px; flex: none; display: block; }
+  .marke__wort {
+    font-size: 84px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .leistungen {
+    margin-top: 26px; padding-top: 22px; border-top: 2px solid var(--line);
+    font-size: 25px; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink);
+  }
+  .leistungen i { font-style: normal; color: #0f9d63; }
+  .leistungen b { font-weight: 600; white-space: nowrap; }
+
+  /* ---------- Mitte: die E-Mail ---------- */
+  .label {
+    margin-top: 150px;
+    font-size: 29px; font-weight: 700; letter-spacing: .34em;
+    text-transform: uppercase; color: var(--grey);
+  }
+  .mail {
+    margin-top: 30px;
+    font-size: 96px; font-weight: 800; color: var(--ink);
+    letter-spacing: -.005em; white-space: nowrap;
+  }
+  .mail-strich { width: 100%; height: 3px; background: var(--ink); margin-top: 26px; }
+
+  .hinweis {
+    margin-top: 46px; font-size: 30px; line-height: 1.6; color: #33383f;
+    font-weight: 500; max-width: 22em;
+  }
+  .hinweis b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- QR ---------- */
+  .qr-block { margin-top: 96px; }
+  .qr {
+    width: 380px; height: 380px; margin: 0 auto; padding: 14px;
+    background: #fff; border: 2px solid var(--line); border-radius: 10px;
+  }
+  .qr img { width: 100%; height: 100%; display: block; }
+  .qr-block small {
+    display: block; margin-top: 20px; font-size: 24px; font-weight: 600;
+    letter-spacing: .1em; color: var(--grey);
+  }
+
+  /* ---------- Fuß ---------- */
+  .fuss {
+    margin-top: auto; padding-top: 56px; width: 100%;
+    border-top: 2px solid var(--line);
+    font-size: 27px; line-height: 1.6; color: var(--ink); font-weight: 600;
+  }
+  .fuss .leise { color: var(--grey); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="blatt" id="blatt">
+
+  <div class="marke">
+    <svg class="marke__zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="mk" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+        <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+      </linearGradient></defs>
+      <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#mk)" />
+      <text x="100" y="141" text-anchor="middle" fill="#ffffff"
+            font-family="Poppins" font-weight="900" font-size="124">P</text>
+    </svg>
+    <span class="marke__wort">Phonetastic</span>
+  </div>
+
+  <div class="leistungen">
+    <b>Reparatur</b> <i>·</i> <b>Zubehör</b> <i>·</i>
+    <b>An-&nbsp;&amp;&nbsp;Verkauf</b> <i>·</i> <b>SIM-Karten</b>
+  </div>
+
+  <div class="label">Schreiben Sie uns</div>
+  <div class="mail">info@phonetastic.at</div>
+  <div class="mail-strich"></div>
+
+  <p class="hinweis">
+    Schicken Sie uns <b>Gerät, Modell und das Problem</b> –
+    wir melden uns mit Preis und Dauer zurück.
+  </p>
+
+  <div class="qr-block">
+    <div class="qr"><img src="qr-mail.svg" alt="QR-Code: E-Mail an info@phonetastic.at" /></div>
+    <small>Scannen und direkt schreiben</small>
+  </div>
+
+  <div class="fuss">
+    Quellenstraße 111, 1100 Wien · beim Reumannplatz<br />
+    <span class="leise">Telefon 0660 651 12 62 · phonetastic.at</span>
+  </div>
+
+</div>
+
+</body>
+</html>
