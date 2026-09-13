@@ -55,6 +55,14 @@
   /* --- C: Handy-Symbol mit P --- */
   .icon { width: 760px; height: 760px; display: block; }
 
+
+  /* --- E/F: Siegel – Leistungen als Ring um das Zeichen --- */
+  .siegel { width: 1080px; height: 1080px; display: block; }
+  .siegel .ringtext {
+    font-family: 'Poppins'; font-weight: 700; font-size: 54px;
+    letter-spacing: .16em; text-transform: uppercase;
+  }
+
   /* --- D: Monogramm P auf Weiß --- */
   /* ohne Ring: dünne Linien verschwinden bei 32 px vollständig */
 </style>
@@ -94,6 +102,82 @@
 <!-- D – Monogramm auf Weiß mit Ring -->
 <div class="stage stage--light" id="d">
   <div class="mono grad">P</div>
+</div>
+
+
+
+<!-- E – Siegel: Leistungen als zwei aufrechte Bögen -->
+<div class="stage stage--dark" id="e">
+  <svg class="siegel" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gre" x1="110" y1="150" x2="970" y2="930" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#22c55e" />
+        <stop offset=".32" stop-color="#34d399" />
+        <stop offset=".66" stop-color="#22d3ee" />
+        <stop offset="1" stop-color="#38bdf8" />
+      </linearGradient>
+      <!-- oberer Bogen: von links nach rechts über den Scheitel -->
+      <path id="obene" fill="none" d="M 116,540 A 424,424 0 0 1 964,540" />
+      <!-- unterer Bogen: ebenfalls von links nach rechts, aber unten
+           herum – so stehen die Buchstaben auch dort aufrecht -->
+      <path id="untene" fill="none" d="M 124,540 A 416,416 0 0 0 956,540" />
+    </defs>
+
+    <circle cx="540" cy="540" r="492" fill="none" stroke="rgba(148,163,184,.32)" stroke-width="3" />
+    <circle cx="540" cy="540" r="352" fill="none" stroke="rgba(148,163,184,.32)" stroke-width="3" />
+
+    <text class="ringtext" fill="url(#gre)">
+      <textPath href="#obene" startOffset="50%" text-anchor="middle">Reparatur · Zubehör</textPath>
+    </text>
+    <text class="ringtext" fill="url(#gre)">
+      <textPath href="#untene" startOffset="50%" text-anchor="middle">An- &amp; Verkauf · SIM-Karten</textPath>
+    </text>
+
+    <!-- Rauten dort, wo die beiden Bögen aufeinandertreffen -->
+    <rect x="105" y="527" width="26" height="26" rx="3" transform="rotate(45 118 540)" fill="url(#gre)" opacity=".75" />
+    <rect x="949" y="527" width="26" height="26" rx="3" transform="rotate(45 962 540)" fill="url(#gre)" opacity=".75" />
+
+    <text x="540" y="540" text-anchor="middle" dominant-baseline="central"
+          fill="url(#gre)" font-family="Poppins" font-weight="900"
+          font-size="400" dy="12" dx="-9">P</text>
+  </svg>
+</div>
+
+<!-- F – Siegel: Leistungen als zwei aufrechte Bögen -->
+<div class="stage stage--dark" id="f">
+  <svg class="siegel" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="grf" x1="110" y1="150" x2="970" y2="930" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#22c55e" />
+        <stop offset=".32" stop-color="#34d399" />
+        <stop offset=".66" stop-color="#22d3ee" />
+        <stop offset="1" stop-color="#38bdf8" />
+      </linearGradient>
+      <!-- oberer Bogen: von links nach rechts über den Scheitel -->
+      <path id="obenf" fill="none" d="M 116,540 A 424,424 0 0 1 964,540" />
+      <!-- unterer Bogen: ebenfalls von links nach rechts, aber unten
+           herum – so stehen die Buchstaben auch dort aufrecht -->
+      <path id="untenf" fill="none" d="M 124,540 A 416,416 0 0 0 956,540" />
+    </defs>
+
+    <circle cx="540" cy="540" r="492" fill="none" stroke="rgba(148,163,184,.32)" stroke-width="3" />
+    <circle cx="540" cy="540" r="352" fill="none" stroke="rgba(148,163,184,.32)" stroke-width="3" />
+
+    <text class="ringtext" fill="url(#grf)">
+      <textPath href="#obenf" startOffset="50%" text-anchor="middle">Reparatur · Zubehör</textPath>
+    </text>
+    <text class="ringtext" fill="url(#grf)">
+      <textPath href="#untenf" startOffset="50%" text-anchor="middle">An- &amp; Verkauf · SIM-Karten</textPath>
+    </text>
+
+    <!-- Rauten dort, wo die beiden Bögen aufeinandertreffen -->
+    <rect x="105" y="527" width="26" height="26" rx="3" transform="rotate(45 118 540)" fill="url(#grf)" opacity=".75" />
+    <rect x="949" y="527" width="26" height="26" rx="3" transform="rotate(45 962 540)" fill="url(#grf)" opacity=".75" />
+
+    <rect x="466" y="368" width="148" height="276" rx="34" fill="url(#grf)" />
+    <text x="540" y="572" text-anchor="middle" fill="#0b1220"
+          font-family="Poppins" font-weight="900" font-size="190">P</text>
+  </svg>
 </div>
 
 </body>
