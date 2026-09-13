@@ -19,10 +19,19 @@
      einem Schwarz-Weiß-Kopierer scharf und kostet kaum Toner. */
   .blatt {
     width: 1240px; height: 1754px; background: #ffffff;
-    padding: 120px 100px 96px;
+    padding: 86px 100px 96px;
     display: flex; flex-direction: column; align-items: center; text-align: center;
   }
   .blatt > * { flex: none; }
+
+  /* ---------- Zweck des Blattes ---------- */
+  .zweck {
+    font-size: 30px; font-weight: 800; letter-spacing: .42em;
+    text-transform: uppercase; color: var(--ink);
+    padding: 12px 34px 12px 42px;   /* rechts weniger: die Sperrung schiebt */
+    border: 3px solid var(--ink); border-radius: 8px;
+    margin-bottom: 52px;
+  }
 
   /* ---------- Kopf: Logo ---------- */
   .marke { display: flex; align-items: center; gap: 22px; }
@@ -41,7 +50,7 @@
 
   /* ---------- Mitte: die E-Mail ---------- */
   .label {
-    margin-top: 150px;
+    margin-top: 104px;
     font-size: 29px; font-weight: 700; letter-spacing: .34em;
     text-transform: uppercase; color: var(--grey);
   }
@@ -53,15 +62,15 @@
   .mail-strich { width: 100%; height: 3px; background: var(--ink); margin-top: 26px; }
 
   .hinweis {
-    margin-top: 46px; font-size: 30px; line-height: 1.6; color: #33383f;
+    margin-top: 38px; font-size: 29px; line-height: 1.6; color: #33383f;
     font-weight: 500; max-width: 22em;
   }
   .hinweis b { color: var(--ink); font-weight: 700; }
 
   /* ---------- QR ---------- */
-  .qr-block { margin-top: 96px; }
+  .qr-block { margin-top: 72px; }
   .qr {
-    width: 380px; height: 380px; margin: 0 auto; padding: 14px;
+    width: 330px; height: 330px; margin: 0 auto; padding: 13px;
     background: #fff; border: 2px solid var(--line); border-radius: 10px;
   }
   .qr img { width: 100%; height: 100%; display: block; }
@@ -82,6 +91,8 @@
 <body>
 
 <div class="blatt" id="blatt">
+
+  <div class="zweck">Kopieren</div>
 
   <div class="marke">
     <svg class="marke__zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">

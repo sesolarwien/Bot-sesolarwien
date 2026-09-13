@@ -12,8 +12,13 @@ Darauf steht die **öffentliche** Adresse `info@phonetastic.at`, nicht das
 Outlook-Postfach: Post an `info@` wird über KAS dorthin weitergeleitet,
 und nur `info@` steht auch auf der Website und im Impressum.
 
+Oben steht der Vermerk **KOPIEREN**: Das Blatt ist die Vorlage für den
+Kopierer, nicht zum Aushändigen.
+
 Der QR-Code öffnet beim Scannen direkt eine neue E-Mail an diese Adresse
-(`mailto:info@phonetastic.at`, aus dem fertigen Bild wieder ausgelesen).
+(`mailto:info@phonetastic.at`). Nachprüfen mit `python3 qr-pruefen.py` –
+das Skript schneidet den Bereich um den Code aus, weil der Erkenner an
+der ganzen A4-Seite scheitert.
 
 Schrift ist Schwarz auf Weiß, damit das Blatt auch auf einem
 Schwarz-Weiß-Kopierer scharf bleibt und wenig Toner braucht. Bewusst
