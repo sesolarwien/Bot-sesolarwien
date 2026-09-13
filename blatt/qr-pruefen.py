@@ -8,6 +8,6 @@ import cv2
 
 img = cv2.imread('phonetastic-email-blatt.png')
 h, w = img.shape[:2]
-aus = img[int(h * 0.58):int(h * 0.92), int(w * 0.50):int(w * 0.85)]
+aus = img[int(h * 0.68):int(h * 1.00), int(w * 0.35):int(w * 0.65)]
 ok, txt, *_ = cv2.QRCodeDetector().detectAndDecodeMulti(aus)
 print('QR lesbar:', ok, txt if ok else '')
