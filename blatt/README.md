@@ -9,31 +9,28 @@ keine Adresse, keine Öffnungszeiten.
 | `phonetastic-email-blatt.pdf` | zum Drucken und Kopieren – eine Seite A4 quer (297 × 210 mm) |
 | `phonetastic-email-blatt.png` | 3508 × 2480 px = A4 quer bei 300 dpi |
 
-**Zur Seitengröße:** Die Gestaltung ist 1754 × 1240 px groß, das ist A4
-quer bei 150 dpi. Chromium rechnet Pixelangaben im PDF aber mit 96 dpi
-um – als Seitenmaß in Pixeln angegeben ergäbe das eine Seite von
-464 × 328 mm, und der Drucker verteilt sie auf zwei Blätter. Darum wird
-das PDF mit `format: 'A4', landscape: true` erzeugt und die Gestaltung
-per `@media print` auf 0,639977 verkleinert (1122,5 CSS-Pixel ÷ 1754).
-Nach jeder Änderung prüfen:
+**Zur Seitengröße:** Das Blatt ist direkt in Millimetern aufgebaut
+(297 × 210 mm) und damit exakt so groß wie die Druckseite – nichts wird
+umgerechnet oder nachträglich verkleinert. Ringsum bleiben mindestens
+14 mm frei, mehr als jeder Drucker als nicht bedruckbaren Rand braucht.
 
-```bash
-python3 -c "import re; d=open('phonetastic-email-blatt.pdf','rb').read(); \
-  print([(round(float(v.split()[2])/72*25.4), round(float(v.split()[3])/72*25.4)) \
-  for v in set(re.findall(rb'/MediaBox\s*\[([^\]]+)\]', d))])"
-```
+Früher war die Seitengröße in Pixeln angegeben. Chromium rechnet die mit
+96 dpi um, wodurch eine Seite von 464 × 328 mm entstand, die der Drucker
+auf mehrere Blätter verteilt hat.
 
-Darauf steht die **öffentliche** Adresse `info@phonetastic.at`, nicht das
-Outlook-Postfach: Post an `info@` wird über KAS dorthin weitergeleitet,
-und nur `info@` steht auch auf der Website und im Impressum.
+`pdf-pruefen.py` rendert das fertige PDF Seite für Seite und meldet,
+wenn es mehr als eine Seite hat, die Seite nicht A4 quer ist oder der
+QR-Code nicht vollständig und lesbar auf Seite 1 liegt.
 
-Der QR-Code öffnet beim Scannen direkt eine neue E-Mail an diese Adresse
-(`mailto:info@phonetastic.at`). Nachprüfen mit `python3 qr-pruefen.py` –
-das Skript schneidet den Bereich um den Code aus, weil der Erkenner an
-der ganzen A4-Seite scheitert.
+## Drucken
 
-Alles in Schwarz auf Weiß, damit das Blatt auf jedem Kopierer scharf
-bleibt und wenig Toner braucht.
+Das **PDF** ausdrucken, nicht das PNG – ein Bild hat keine Seitengröße,
+und Bildbetrachter skalieren es beliebig. Im Druckdialog:
+
+* Papier **A4**
+* Ausrichtung **Querformat** (steht im PDF, manche Drucker fragen trotzdem)
+* Größe **100 % / Tatsächliche Größe** oder **An Seite anpassen**
+* **Beidseitig ausschalten**, sonst bleibt die Rückseite unnötig belegt
 
 ## Neu erzeugen
 
