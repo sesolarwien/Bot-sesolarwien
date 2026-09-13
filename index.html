@@ -60,9 +60,23 @@
   <!-- ============ HEADER ============ -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#home" class="brand" aria-label="PHONETASTIC Startseite">
-        <span class="brand__top">HANDY REPARATUR</span>
-        <span class="brand__main">PHONE<span>TASTIC</span></span>
+      <a href="#home" class="brand brand--mark" aria-label="PHONETASTIC Startseite">
+        <svg class="brand__mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="markGrad" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+              <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+            </linearGradient>
+          </defs>
+          <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#markGrad)" />
+          <text x="100" y="141" text-anchor="middle" fill="#0b1220"
+                font-family="Poppins, sans-serif" font-weight="900" font-size="124">P</text>
+        </svg>
+        <span class="brand__text">
+          <span class="brand__top">HANDY REPARATUR</span>
+          <span class="brand__main">PHONE<span>TASTIC</span></span>
+          <span class="brand__services"><b>Reparatur</b> <i>·</i> <b>Zubehör</b> <i>·</i> <b>An-&nbsp;&amp;&nbsp;Verkauf</b> <i>·</i> <b>SIM-Karten</b></span>
+        </span>
       </a>
 
       <nav class="nav" id="nav">
@@ -110,6 +124,7 @@
         <div class="hero__logo">
           <span class="brand__top">HANDY REPARATUR</span>
           <span class="brand__main brand__main--xl">PHONE<span>TASTIC</span></span>
+          <span class="brand__services"><b>Reparatur</b> <i>·</i> <b>Zubehör</b> <i>·</i> <b>An-&nbsp;&amp;&nbsp;Verkauf</b> <i>·</i> <b>SIM-Karten</b></span>
         </div>
         <p>Bring dein Gerät vorbei – die häufigsten Reparaturen erledigen wir, während du wartest.</p>
         <div class="hero__stats">
@@ -598,9 +613,22 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__col">
-        <a href="#home" class="brand">
-          <span class="brand__top">HANDY REPARATUR</span>
-          <span class="brand__main">PHONE<span>TASTIC</span></span>
+        <a href="#home" class="brand brand--mark">
+          <svg class="brand__mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="markGradFoot" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+              <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+            </linearGradient>
+          </defs>
+          <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#markGradFoot)" />
+          <text x="100" y="141" text-anchor="middle" fill="#0b1220"
+                font-family="Poppins, sans-serif" font-weight="900" font-size="124">P</text>
+        </svg>
+          <span class="brand__text">
+            <span class="brand__top">HANDY REPARATUR</span>
+            <span class="brand__main">PHONE<span>TASTIC</span></span>
+          </span>
         </a>
         <p>Reparatur für Handy, Tablet und Laptop – mitten in Wien-Favoriten.</p>
       </div>
