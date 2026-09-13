@@ -1,19 +1,18 @@
-# E-Mail-Blatt A4
+# E-Mail-Blatt A4 quer
 
-Ein weißes A4-Blatt mit der E-Mail-Adresse, zum Ausdrucken, Kopieren
-oder Aufhängen im Geschäft.
+Ein weißes A4-Blatt im Querformat mit der E-Mail-Adresse, zum Ausdrucken
+und Kopieren.
 
 | Datei | Wofür |
 |---|---|
-| `phonetastic-email-blatt.pdf` | zum Drucken und Kopieren (A4) |
-| `phonetastic-email-blatt.png` | 2480 × 3508 (300 dpi), falls ein Bild gebraucht wird |
+| `phonetastic-email-blatt.pdf` | zum Drucken und Kopieren (A4 quer) |
+| `phonetastic-email-blatt.png` | 3508 × 2480 (300 dpi), falls ein Bild gebraucht wird |
 
 Darauf steht die **öffentliche** Adresse `info@phonetastic.at`, nicht das
 Outlook-Postfach: Post an `info@` wird über KAS dorthin weitergeleitet,
 und nur `info@` steht auch auf der Website und im Impressum.
 
-Oben steht der Vermerk **KOPIEREN**: Das Blatt ist die Vorlage für den
-Kopierer, nicht zum Aushändigen.
+Oben steht groß **KOPIE**.
 
 Der QR-Code öffnet beim Scannen direkt eine neue E-Mail an diese Adresse
 (`mailto:info@phonetastic.at`). Nachprüfen mit `python3 qr-pruefen.py` –

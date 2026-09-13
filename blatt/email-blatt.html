@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-<title>PHONETASTIC – E-Mail-Blatt A4</title>
+<title>PHONETASTIC – E-Mail-Blatt A4 quer</title>
 <link rel="stylesheet" href="../fonts.css" />
 <style>
   :root {
@@ -14,76 +14,78 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Poppins', system-ui, sans-serif; background: #b9bec4; }
 
-  /* A4 hoch bei 150 dpi, wird mit Faktor 2 gerendert → 300 dpi.
+  /* A4 quer bei 150 dpi, wird mit Faktor 2 gerendert → 300 dpi.
      Weißer Grund und schwarze Schrift: So bleibt das Blatt auch auf
      einem Schwarz-Weiß-Kopierer scharf und kostet kaum Toner. */
   .blatt {
-    width: 1240px; height: 1754px; background: #ffffff;
-    padding: 86px 100px 96px;
+    width: 1754px; height: 1240px; background: #ffffff;
+    padding: 70px 90px 62px;
     display: flex; flex-direction: column; align-items: center; text-align: center;
   }
   .blatt > * { flex: none; }
 
   /* ---------- Zweck des Blattes ---------- */
   .zweck {
-    font-size: 30px; font-weight: 800; letter-spacing: .42em;
-    text-transform: uppercase; color: var(--ink);
-    padding: 12px 34px 12px 42px;   /* rechts weniger: die Sperrung schiebt */
-    border: 3px solid var(--ink); border-radius: 8px;
-    margin-bottom: 52px;
+    font-size: 132px; font-weight: 900; letter-spacing: .3em;
+    text-transform: uppercase; color: var(--ink); line-height: 1;
+    padding-left: .3em;            /* die Sperrung schiebt nach rechts */
   }
 
-  /* ---------- Kopf: Logo ---------- */
-  .marke { display: flex; align-items: center; gap: 22px; }
-  .marke__zeichen { width: 102px; height: 102px; flex: none; display: block; }
+  /* ---------- Logo ---------- */
+  .marke { display: flex; align-items: center; gap: 20px; margin-top: 34px; }
+  .marke__zeichen { width: 88px; height: 88px; flex: none; display: block; }
   .marke__wort {
-    font-size: 84px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
+    font-size: 72px; font-weight: 800; text-transform: uppercase; letter-spacing: .14em;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .leistungen {
-    margin-top: 26px; padding-top: 22px; border-top: 2px solid var(--line);
-    font-size: 25px; font-weight: 600; letter-spacing: .12em;
+    margin-top: 20px; padding-top: 18px; border-top: 2px solid var(--line);
+    font-size: 24px; font-weight: 600; letter-spacing: .12em;
     text-transform: uppercase; color: var(--ink);
   }
   .leistungen i { font-style: normal; color: #0f9d63; }
   .leistungen b { font-weight: 600; white-space: nowrap; }
 
-  /* ---------- Mitte: die E-Mail ---------- */
+  /* ---------- Die E-Mail ---------- */
   .label {
-    margin-top: 104px;
-    font-size: 29px; font-weight: 700; letter-spacing: .34em;
+    margin-top: 44px;
+    font-size: 28px; font-weight: 700; letter-spacing: .34em;
     text-transform: uppercase; color: var(--grey);
   }
   .mail {
-    margin-top: 30px;
-    font-size: 96px; font-weight: 800; color: var(--ink);
-    letter-spacing: -.005em; white-space: nowrap;
+    margin-top: 20px;
+    font-size: 118px; font-weight: 800; color: var(--ink);
+    letter-spacing: -.005em; white-space: nowrap; line-height: 1.1;
   }
-  .mail-strich { width: 100%; height: 3px; background: var(--ink); margin-top: 26px; }
+  .mail-strich { width: 100%; height: 3px; background: var(--ink); margin-top: 18px; }
 
+  /* ---------- Unten: Hinweis und QR nebeneinander ---------- */
+  .unten {
+    margin-top: 34px; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 70px;
+  }
   .hinweis {
-    margin-top: 38px; font-size: 29px; line-height: 1.6; color: #33383f;
-    font-weight: 500; max-width: 22em;
+    font-size: 30px; line-height: 1.6; color: #33383f;
+    font-weight: 500; max-width: 17em; text-align: left;
   }
   .hinweis b { color: var(--ink); font-weight: 700; }
 
-  /* ---------- QR ---------- */
-  .qr-block { margin-top: 72px; }
+  .qr-block { flex: none; }
   .qr {
-    width: 330px; height: 330px; margin: 0 auto; padding: 13px;
+    width: 250px; height: 250px; margin: 0 auto; padding: 11px;
     background: #fff; border: 2px solid var(--line); border-radius: 10px;
   }
   .qr img { width: 100%; height: 100%; display: block; }
   .qr-block small {
-    display: block; margin-top: 20px; font-size: 24px; font-weight: 600;
-    letter-spacing: .1em; color: var(--grey);
+    display: block; margin-top: 14px; font-size: 21px; font-weight: 600;
+    letter-spacing: .08em; color: var(--grey);
   }
 
   /* ---------- Fuß ---------- */
   .fuss {
-    margin-top: auto; padding-top: 56px; width: 100%;
+    margin-top: auto; padding-top: 34px; width: 100%;
     border-top: 2px solid var(--line);
-    font-size: 27px; line-height: 1.6; color: var(--ink); font-weight: 600;
+    font-size: 26px; line-height: 1.6; color: var(--ink); font-weight: 600;
   }
   .fuss .leise { color: var(--grey); font-weight: 500; }
 </style>
@@ -92,7 +94,7 @@
 
 <div class="blatt" id="blatt">
 
-  <div class="zweck">Kopieren</div>
+  <div class="zweck">Kopie</div>
 
   <div class="marke">
     <svg class="marke__zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -116,14 +118,15 @@
   <div class="mail">info@phonetastic.at</div>
   <div class="mail-strich"></div>
 
-  <p class="hinweis">
-    Schicken Sie uns <b>Gerät, Modell und das Problem</b> –
-    wir melden uns mit Preis und Dauer zurück.
-  </p>
-
-  <div class="qr-block">
-    <div class="qr"><img src="qr-mail.svg" alt="QR-Code: E-Mail an info@phonetastic.at" /></div>
-    <small>Scannen und direkt schreiben</small>
+  <div class="unten">
+    <p class="hinweis">
+      Schicken Sie uns <b>Gerät, Modell und das Problem</b> –
+      wir melden uns mit Preis und Dauer zurück.
+    </p>
+    <div class="qr-block">
+      <div class="qr"><img src="qr-mail.svg" alt="QR-Code: E-Mail an info@phonetastic.at" /></div>
+      <small>Scannen und direkt schreiben</small>
+    </div>
   </div>
 
   <div class="fuss">

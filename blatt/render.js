@@ -5,7 +5,7 @@ const path = require('path');
   const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
 
   // PNG in Druckauflösung
-  const p = await b.newPage({ viewport: { width: 1300, height: 1800 }, deviceScaleFactor: 2 });
+  const p = await b.newPage({ viewport: { width: 1820, height: 1300 }, deviceScaleFactor: 2 });
   await p.goto('file://' + path.join(__dirname, 'email-blatt.html'));
   await p.evaluate(() => document.fonts.ready);
   await p.waitForTimeout(500);
@@ -33,13 +33,13 @@ const path = require('path');
   await el.screenshot({ path: path.join(__dirname, 'phonetastic-email-blatt.png') });
 
   // PDF für die Druckerei bzw. zum Kopieren
-  const pdf = await b.newPage({ viewport: { width: 1240, height: 1754 } });
+  const pdf = await b.newPage({ viewport: { width: 1754, height: 1240 } });
   await pdf.goto('file://' + path.join(__dirname, 'email-blatt.html'));
   await pdf.evaluate(() => document.fonts.ready);
   await pdf.waitForTimeout(400);
   await pdf.pdf({
     path: path.join(__dirname, 'phonetastic-email-blatt.pdf'),
-    width: '1240px', height: '1754px', printBackground: true,
+    width: '1754px', height: '1240px', printBackground: true,
     margin: { top: 0, right: 0, bottom: 0, left: 0 },
   });
 
