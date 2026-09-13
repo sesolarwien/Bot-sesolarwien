@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>PHONETASTIC – Kopie-Blatt A4 quer</title>
+<link rel="stylesheet" href="../fonts.css" />
+<style>
+  /* Genau eine A4-Seite quer, ohne Rand */
+  @page { size: A4 landscape; margin: 0; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 297mm; height: 210mm; }
+  body { font-family: 'Poppins', system-ui, sans-serif; background: #ffffff; }
+
+  /* Das Blatt ist direkt in Millimetern aufgebaut und damit exakt so
+     groß wie die Druckseite. Kein Umrechnen und kein nachträgliches
+     Verkleinern – dadurch kann nichts auf eine zweite Seite rutschen.
+     Ringsum bleiben mindestens 14 mm frei, mehr als jeder Drucker als
+     nicht bedruckbaren Rand braucht. */
+  .blatt {
+    width: 297mm; height: 210mm; background: #ffffff;
+    padding: 14mm 20mm 18mm;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: space-between; text-align: center;
+  }
+  .blatt > * { flex: none; }
+
+  .kopie {
+    font-size: 54mm; font-weight: 900; letter-spacing: .22em;
+    text-transform: uppercase; color: #000; line-height: 1;
+    padding-left: .22em;           /* die Sperrung schiebt nach rechts */
+  }
+
+  .mail {
+    font-size: 19mm; font-weight: 800; color: #000;
+    letter-spacing: -.005em; white-space: nowrap; line-height: 1.1;
+  }
+
+  .qr { width: 58mm; height: 58mm; }
+  .qr img { width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+
+<div class="blatt" id="blatt">
+
+  <div class="kopie">Kopie</div>
+
+  <div class="mail">info@phonetastic.at</div>
+
+  <div class="qr"><img src="qr-mail.svg" alt="QR-Code: E-Mail an info@phonetastic.at" /></div>
+
+</div>
+
+</body>
+</html>
