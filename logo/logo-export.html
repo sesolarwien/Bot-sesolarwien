@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>PHONETASTIC – Logo zugeschnitten und quadratisch</title>
+<link rel="stylesheet" href="../fonts.css" />
+<style>
+  :root {
+    --grad: linear-gradient(100deg, #22c55e 0%, #34d399 30%, #22d3ee 60%, #38bdf8 100%);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', system-ui, sans-serif; background: transparent; }
+
+  .wort {
+    font-weight: 900; text-transform: uppercase; line-height: .94; letter-spacing: .012em;
+    background: var(--grad);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .top { font-weight: 700; letter-spacing: .44em; text-transform: uppercase; }
+  .leistungen { font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
+  .leistungen i { font-style: normal; }
+
+  /* ---------- Quer, knapp beschnitten, ohne Hintergrund ---------- */
+  .knapp {
+    display: inline-flex; align-items: center; gap: 64px;
+    padding: 20px;          /* nur ein Hauch Luft, damit nichts anschneidet */
+    background: transparent;
+  }
+  .knapp .zeichen { width: 244px; height: 244px; flex: none; display: block; }
+  .knapp .top { font-size: 31px; margin-bottom: 13px; }
+  .knapp .wort { font-size: 162px; }
+  .knapp .leistungen { font-size: 36px; margin-top: 18px; padding-top: 18px; }
+
+  .auf-hell .top { color: #79818d; }
+  .auf-hell .leistungen { color: #14161a; border-top: 2px solid #d9dde3; }
+  .auf-hell .leistungen i { color: #0f9d63; }
+
+  .auf-dunkel .top { color: #9fb3c8; }
+  .auf-dunkel .leistungen { color: #dbe6f0; border-top: 2px solid rgba(148, 163, 184, .34); }
+  .auf-dunkel .leistungen i { color: #34d399; }
+
+  /* ---------- Quadratisch: Profilbild und Google ---------- */
+  .quadrat {
+    width: 1080px; height: 1080px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 120px;
+  }
+  .quadrat--hell { background: #ffffff; }
+  .quadrat--dunkel {
+    background:
+      radial-gradient(620px 620px at 28% 16%, rgba(52, 211, 153, .20), transparent 62%),
+      radial-gradient(640px 640px at 80% 86%, rgba(56, 189, 248, .22), transparent 62%),
+      linear-gradient(150deg, #0b1220 0%, #16233a 55%, #0a1526 100%);
+  }
+  .quadrat .zeichen { width: 240px; height: 240px; display: block; }
+  .quadrat .top { font-size: 24px; margin-top: 34px; margin-bottom: 12px; }
+  .quadrat .wort { font-size: 120px; }
+  .quadrat .strich { width: 520px; height: 2px; margin: 26px 0 22px; }
+  .quadrat .leistungen { font-size: 29px; line-height: 1.6; }
+  .quadrat--hell .strich { background: #d9dde3; }
+  .quadrat--dunkel .strich { background: rgba(148, 163, 184, .34); }
+</style>
+</head>
+<body>
+
+<!-- Zeichen als wiederverwendbares Stück -->
+<template id="zeichen">
+  <svg class="zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect x="52" y="10" width="96" height="180" rx="22" />
+    <text x="100" y="141" text-anchor="middle"
+          font-family="Poppins" font-weight="900" font-size="124">P</text>
+  </svg>
+</template>
+
+<div class="knapp auf-hell" id="knapp-hell">
+  <svg class="zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g1" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+      <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+    </linearGradient></defs>
+    <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#g1)" />
+    <text x="100" y="141" text-anchor="middle" fill="#ffffff"
+          font-family="Poppins" font-weight="900" font-size="124">P</text>
+  </svg>
+  <div>
+    <div class="top">Handy Reparatur</div>
+    <div class="wort">Phonetastic</div>
+    <div class="leistungen">Reparatur<i> · </i>Zubehör<i> · </i>An-&nbsp;&amp;&nbsp;Verkauf<i> · </i>SIM-Karten</div>
+  </div>
+</div>
+
+<div class="knapp auf-dunkel" id="knapp-dunkel">
+  <svg class="zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g2" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+      <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+    </linearGradient></defs>
+    <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#g2)" />
+    <text x="100" y="141" text-anchor="middle" fill="#0b1220"
+          font-family="Poppins" font-weight="900" font-size="124">P</text>
+  </svg>
+  <div>
+    <div class="top">Handy Reparatur</div>
+    <div class="wort">Phonetastic</div>
+    <div class="leistungen">Reparatur<i> · </i>Zubehör<i> · </i>An-&nbsp;&amp;&nbsp;Verkauf<i> · </i>SIM-Karten</div>
+  </div>
+</div>
+
+<div class="quadrat quadrat--hell auf-hell" id="quadrat-hell">
+  <svg class="zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g3" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+      <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+    </linearGradient></defs>
+    <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#g3)" />
+    <text x="100" y="141" text-anchor="middle" fill="#ffffff"
+          font-family="Poppins" font-weight="900" font-size="124">P</text>
+  </svg>
+  <div class="top">Handy Reparatur</div>
+  <div class="wort">Phonetastic</div>
+  <div class="strich"></div>
+  <div class="leistungen">Reparatur<i> · </i>Zubehör<br />An-&nbsp;&amp;&nbsp;Verkauf<i> · </i>SIM-Karten</div>
+</div>
+
+<div class="quadrat quadrat--dunkel auf-dunkel" id="quadrat-dunkel">
+  <svg class="zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g4" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+      <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+    </linearGradient></defs>
+    <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#g4)" />
+    <text x="100" y="141" text-anchor="middle" fill="#0b1220"
+          font-family="Poppins" font-weight="900" font-size="124">P</text>
+  </svg>
+  <div class="top">Handy Reparatur</div>
+  <div class="wort">Phonetastic</div>
+  <div class="strich"></div>
+  <div class="leistungen">Reparatur<i> · </i>Zubehör<br />An-&nbsp;&amp;&nbsp;Verkauf<i> · </i>SIM-Karten</div>
+</div>
+
+</body>
+</html>

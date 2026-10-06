@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>PHONETASTIC – Herzlich willkommen (Story 1080 × 1920)</title>
+<link rel="stylesheet" href="../fonts.css" />
+<link rel="stylesheet" href="fonts-einladung.css" />
+<link rel="stylesheet" href="elegant.css" />
+<style>
+  /* Oben und unten viel Luft: dort liegen bei Instagram und WhatsApp
+     die Bedienelemente über dem Bild. */
+  .stage { width: 1080px; height: 1920px; padding: 200px 80px 220px; }
+
+  .tick { height: 50px; }
+  .tick--bottom { margin-top: 26px; }
+
+  .tiny { font-size: 22px; letter-spacing: .42em; margin-top: 30px; }
+
+  .marke { display: flex; align-items: center; gap: 20px; margin-top: 30px; }
+  .marke__zeichen { width: 88px; height: 88px; flex: none; display: block; }
+  .marke__wort {
+    font-size: 74px; font-weight: 800; text-transform: uppercase; letter-spacing: .16em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .serif { font-size: 70px; margin-top: 34px; }
+  .script { font-size: 210px; margin-top: -8px; }
+
+  .satz { font-size: 30px; color: var(--soft); font-weight: 500; margin-top: 12px; letter-spacing: .02em; }
+  .satz b { color: var(--ink); font-weight: 700; }
+
+  .zeiten {
+    margin-top: 36px; padding: 28px 0 30px; width: 100%;
+    border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair);
+  }
+  .zeiten__label { font-size: 21px; letter-spacing: .3em; text-transform: uppercase; color: var(--grey); font-weight: 700; }
+  .zeiten__uhr { font-size: 84px; font-weight: 800; color: var(--ink); margin-top: 10px; letter-spacing: .01em; }
+  .zeiten__uhr b {
+    font-weight: 800;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  .leistungen {
+    margin-top: 32px; font-size: 23px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink); line-height: 1.8;
+  }
+  .leistungen i { font-style: normal; color: var(--accent); margin: 0 .12em; }
+  .leistungen b { font-weight: 700; white-space: nowrap; }
+
+  .orn { margin-top: 34px; }
+  .orn i { width: 10px; height: 10px; margin: 0 7px; }
+
+  .addr { margin-top: auto; padding-top: 30px; }
+  .addr p { font-size: 27px; line-height: 1.6; letter-spacing: .04em; }
+  .addr .line { font-size: 24px; }
+  .web { font-size: 40px; display: block; margin-top: 14px; }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="inner">
+
+    <div class="tick"></div>
+
+    <div class="tiny">Neu in Wien-Favoriten</div>
+
+    <div class="marke">
+      <svg class="marke__zeichen" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="mk" x1="30" y1="20" x2="170" y2="180" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#22c55e" /><stop offset=".32" stop-color="#34d399" />
+          <stop offset=".66" stop-color="#22d3ee" /><stop offset="1" stop-color="#38bdf8" />
+        </linearGradient></defs>
+        <rect x="52" y="10" width="96" height="180" rx="22" fill="url(#mk)" />
+        <text x="100" y="141" text-anchor="middle" fill="#ffffff"
+              font-family="Poppins" font-weight="900" font-size="124">P</text>
+      </svg>
+      <span class="marke__wort">Phonetastic</span>
+    </div>
+
+    <div class="serif">Herzlich</div>
+    <div class="script">willkommen</div>
+
+    <p class="satz">Unser <b>neuer Laden</b> ist für euch geöffnet.</p>
+
+    <div class="zeiten">
+      <div class="zeiten__label">Täglich geöffnet</div>
+      <div class="zeiten__uhr"><b>9:00 – 19:00 Uhr</b></div>
+    </div>
+
+    <p class="leistungen">
+      <b>Reparatur</b> <i>·</i> <b>Zubehör</b> <i>·</i>
+      <b>An-&nbsp;&amp;&nbsp;Verkauf</b> <i>·</i> <b>SIM-Karten</b>
+    </p>
+
+    <div class="orn"><i></i><i></i><i></i></div>
+
+    <div class="addr">
+      <p><strong>Quellenstraße 111, 1100 Wien</strong> · beim Reumannplatz</p>
+      <p class="line">Telefon 0660 651 12 62</p>
+      <span class="web">phonetastic.at</span>
+    </div>
+
+    <div class="tick tick--bottom"></div>
+
+  </div>
+</div>
+
+</body>
+</html>
