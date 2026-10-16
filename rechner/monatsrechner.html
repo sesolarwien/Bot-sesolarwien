@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PHONETASTIC – Monatsrechner</title>
+<link rel="stylesheet" href="../fonts.css" />
+<style>
+  :root {
+    --grad: linear-gradient(100deg, #22c55e 0%, #34d399 30%, #22d3ee 60%, #38bdf8 100%);
+    --ink: #0b1220;
+    --grey: #64748b;
+    --hair: #e2e8f0;
+    --bg: #f6f8fb;
+    --card: #ffffff;
+    --gut: #16a34a;
+    --schlecht: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background: var(--bg); color: var(--ink);
+    padding: 20px 16px 64px; line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  h1 {
+    font-size: 26px; font-weight: 800; letter-spacing: -.01em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { color: var(--grey); font-size: 14px; margin: 6px 0 24px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--hair); border-radius: 16px;
+    padding: 20px; margin-bottom: 16px;
+  }
+  h2 {
+    font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 16px;
+  }
+
+  /* ---- Eingaben ---- */
+  .feld { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--hair); }
+  .feld:last-child { border-bottom: 0; }
+  .feld label { flex: 1; font-size: 14px; font-weight: 500; }
+  .feld small { display: block; color: var(--grey); font-size: 12px; font-weight: 400; }
+  .feld input[type=number] {
+    width: 110px; flex: none; text-align: right;
+    font: inherit; font-weight: 700; font-size: 15px;
+    padding: 8px 10px; border: 1px solid var(--hair); border-radius: 9px;
+    background: #fff; color: var(--ink);
+  }
+  .feld input:focus { outline: 2px solid #22d3ee; outline-offset: 1px; }
+  .feld .einheit { width: 26px; flex: none; color: var(--grey); font-size: 14px; }
+
+  /* ---- Ergebnisse ---- */
+  .zeile {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--hair);
+  }
+  .zeile:last-child { border-bottom: 0; }
+  .zeile span { font-size: 14px; color: var(--grey); }
+  .zeile b { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .zeile.minus b { color: var(--schlecht); }
+  .zeile.summe { border-top: 2px solid var(--ink); border-bottom: 0; margin-top: 4px; padding-top: 12px; }
+  .zeile.summe span { color: var(--ink); font-weight: 700; font-size: 15px; }
+  .zeile.summe b { font-size: 20px; font-weight: 800; }
+
+  .gross {
+    text-align: center; padding: 22px 16px; border-radius: 14px;
+    background: #f0fdf4; border: 1px solid #bbf7d0; margin-bottom: 14px;
+  }
+  .gross.warn { background: #fef2f2; border-color: #fecaca; }
+  .gross .label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--grey); }
+  .gross .zahl { font-size: 40px; font-weight: 800; letter-spacing: -.02em; margin: 4px 0; font-variant-numeric: tabular-nums; }
+  .gross .hint { font-size: 13px; color: var(--grey); }
+
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .kachel {
+    border: 1px solid var(--hair); border-radius: 14px; padding: 16px; text-align: center; background: #fff;
+  }
+  .kachel .label { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--grey); }
+  .kachel .zahl { font-size: 26px; font-weight: 800; margin: 5px 0 2px; font-variant-numeric: tabular-nums; }
+  .kachel .hint { font-size: 12px; color: var(--grey); }
+
+  .merk {
+    background: #0b1220; color: #fff; border-radius: 16px; padding: 22px 20px; margin-bottom: 16px;
+  }
+  .merk .label { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #94a3b8; }
+  .merk .zahl {
+    font-size: 34px; font-weight: 800; margin: 6px 0 8px; letter-spacing: -.02em;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .merk p { font-size: 14px; color: #cbd5e1; }
+  .merk p b { color: #fff; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 9px 6px; text-align: right; border-bottom: 1px solid var(--hair); font-variant-numeric: tabular-nums; }
+  th { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--grey); font-weight: 800; }
+  th:first-child, td:first-child { text-align: left; }
+  tr.ist { background: #f0fdf4; font-weight: 700; }
+  tr.ist td:first-child::after { content: ' ←'; color: var(--gut); }
+  td.pos { color: var(--gut); font-weight: 700; }
+  td.neg { color: var(--schlecht); font-weight: 700; }
+
+  .fuss { font-size: 12px; color: var(--grey); line-height: 1.6; }
+  .fuss b { color: var(--ink); }
+  .fuss + .fuss { margin-top: 10px; }
+
+  @media (max-width: 460px) {
+    .duo { grid-template-columns: 1fr; }
+    .feld input[type=number] { width: 92px; }
+    .gross .zahl { font-size: 34px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Monatsrechner</h1>
+  <p class="sub">
+    Trag jeden Monat deine echten Zahlen ein. Alles rechnet sich sofort neu –
+    nichts wird gespeichert oder verschickt.
+  </p>
+
+  <!-- ============ EINGABEN ============ -->
+  <div class="card">
+    <h2>Deine Zahlen</h2>
+
+    <div class="feld">
+      <label>Umsatz pro Tag <small>Durchschnitt, so wie er in der Kassa steht</small></label>
+      <input type="number" id="umsatzTag" value="300" min="0" step="10" />
+      <span class="einheit">€</span>
+    </div>
+
+    <div class="feld">
+      <label>Offene Tage im Monat <small>Mo–Sa sind ca. 26</small></label>
+      <input type="number" id="tage" value="26" min="1" max="31" step="1" />
+      <span class="einheit">Tg</span>
+    </div>
+
+    <div class="feld">
+      <label>Umsatzsteuer im Umsatz enthalten <small>0 = Kleinunternehmer, 20 = USt-pflichtig</small></label>
+      <input type="number" id="ustSatz" value="0" min="0" max="20" step="1" />
+      <span class="einheit">%</span>
+    </div>
+
+    <div class="feld">
+      <label>Wareneinsatz <small>Was die verkaufte Ware im Einkauf gekostet hat</small></label>
+      <input type="number" id="wareProz" value="10" min="0" max="90" step="1" />
+      <span class="einheit">%</span>
+    </div>
+
+    <div class="feld">
+      <label>Fixkosten im Monat <small>Miete, Strom, Internet, Versicherung, Steuerberater, Kassa, Werbung</small></label>
+      <input type="number" id="fix" value="3600" min="0" step="50" />
+      <span class="einheit">€</span>
+    </div>
+
+    <div class="feld">
+      <label>Davon Miete <small>Für die mietfreien Monate zum Ausschalten</small></label>
+      <input type="number" id="miete" value="1200" min="0" step="50" />
+      <span class="einheit">€</span>
+    </div>
+
+    <div class="feld">
+      <label>Mietfreier Monat? <small>1 = ja, Miete wird abgezogen · 0 = nein</small></label>
+      <input type="number" id="mietfrei" value="0" min="0" max="1" step="1" />
+      <span class="einheit"></span>
+    </div>
+  </div>
+
+  <!-- ============ ERGEBNIS ============ -->
+  <div class="gross" id="grossBox">
+    <div class="label">Bleibt für die Familie, nach SVS und Steuer</div>
+    <div class="zahl" id="netto">–</div>
+    <div class="hint" id="nettoHint">pro Monat</div>
+  </div>
+
+  <div class="duo" style="margin-bottom:16px">
+    <div class="kachel">
+      <div class="label">Break-even</div>
+      <div class="zahl" id="breakeven">–</div>
+      <div class="hint">Umsatz/Tag, ab dem der Laden sich selbst trägt</div>
+    </div>
+    <div class="kachel">
+      <div class="label">Zielumsatz</div>
+      <div class="zahl" id="ziel">–</div>
+      <div class="hint">Umsatz/Tag für dein Wunsch-Netto</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Rechenweg</h2>
+    <div class="zeile"><span>Umsatz im Monat (brutto)</span><b id="umMonat">–</b></div>
+    <div class="zeile"><span>Umsatz netto, ohne USt</span><b id="umNetto">–</b></div>
+    <div class="zeile minus"><span>− Wareneinsatz</span><b id="ware">–</b></div>
+    <div class="zeile"><span>= Rohertrag</span><b id="rohertrag">–</b></div>
+    <div class="zeile minus"><span>− Fixkosten</span><b id="fixAus">–</b></div>
+    <div class="zeile"><span>= Gewinn vor SVS und Steuer</span><b id="gewinn">–</b></div>
+    <div class="zeile minus"><span>− SVS (Sozialversicherung)</span><b id="svs">–</b></div>
+    <div class="zeile minus"><span>− Einkommensteuer</span><b id="est">–</b></div>
+    <div class="zeile summe"><span>Bleibt übrig</span><b id="netto2">–</b></div>
+  </div>
+
+  <!-- ============ DIE LÜCKE ============ -->
+  <div class="merk">
+    <div class="label">Was dir zum Ziel fehlt</div>
+    <div class="zahl" id="luecke">–</div>
+    <p id="lueckeText">–</p>
+  </div>
+
+  <div class="card">
+    <h2>Dein Wunsch</h2>
+    <div class="feld">
+      <label>Wunsch-Netto pro Monat <small>Was am Ende für die Familie da sein soll</small></label>
+      <input type="number" id="wunsch" value="2500" min="0" step="100" />
+      <span class="einheit">€</span>
+    </div>
+    <div class="feld">
+      <label>Durchschnittliche Reparatur <small>Was eine Reparatur im Schnitt kostet</small></label>
+      <input type="number" id="repPreis" value="110" min="10" step="5" />
+      <span class="einheit">€</span>
+    </div>
+    <div class="feld">
+      <label>Rohertrag einer Reparatur <small>Preis minus Ersatzteil, in Prozent</small></label>
+      <input type="number" id="repMarge" value="70" min="10" max="100" step="5" />
+      <span class="einheit">%</span>
+    </div>
+  </div>
+
+  <!-- ============ SZENARIEN ============ -->
+  <div class="card">
+    <h2>Was bei welchem Tagesumsatz übrig bleibt</h2>
+    <table>
+      <thead>
+        <tr><th>Umsatz/Tag</th><th>Rohertrag</th><th>Gewinn</th><th>Netto/Monat</th></tr>
+      </thead>
+      <tbody id="tabelle"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Zum Mitdenken</h2>
+    <p class="fuss">
+      <b>SVS und Steuer sind geschätzt.</b> Gerechnet mit 26,83 % SVS,
+      15 % Gewinnfreibetrag und dem Einkommensteuertarif 2026. Die
+      genauen Werte hat der Steuerberater – für die Richtung reicht es.
+    </p>
+    <p class="fuss">
+      <b>Prüf deinen Wareneinsatz einmal richtig nach.</b> Addiere alle
+      Großhandelsrechnungen seit der Eröffnung und teile sie durch den
+      Umsatz im selben Zeitraum. Solange du vom Startlager verkaufst,
+      wirkt der Wareneinsatz niedriger als er ist – die Rechnung dafür
+      war schon vor der Eröffnung bezahlt. Der echte Wert zeigt sich beim
+      ersten Nachordern.
+    </p>
+    <p class="fuss">
+      <b>Mietfreie Monate sind kein Gewinn, sondern eine Rücklage.</b> Was
+      in diesen Monaten mehr übrig bleibt, gehört zur Seite gelegt – für
+      die SVS-Nachbemessung und für den Monat, in dem die Miete
+      zurückkommt.
+    </p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const g = (id) => document.getElementById(id);
+  const felder = ['umsatzTag','tage','ustSatz','wareProz','fix','miete','mietfrei','wunsch','repPreis','repMarge'];
+  const eur = (n) => Math.round(n).toLocaleString('de-AT') + ' €';
+
+  // Einkommensteuertarif 2026 (Näherung, Grenzen indexiert)
+  function est(zve) {
+    if (zve <= 0) return 0;
+    const stufen = [[13308,0],[21617,.20],[35836,.30],[69166,.40],[103072,.48],[1000000,.50]];
+    let t = 0, unten = 0;
+    for (const [grenze, satz] of stufen) {
+      if (zve <= unten) break;
+      t += (Math.min(zve, grenze) - unten) * satz;
+      unten = grenze;
+    }
+    if (zve > 1000000) t += (zve - 1000000) * .55;
+    return t;
+  }
+
+  // SVS: 26,83 % der Beitragsgrundlage; die Grundlage ist der Gewinn
+  // nach Abzug der Beiträge, darum wird herausgerechnet.
+  function svsJahr(gewinnJahr) {
+    const mindest = 2600;               // ungefähre Mindestbeiträge
+    const unfall = 150;                 // Unfallversicherung ca. 12,50/Monat
+    if (gewinnJahr <= 0) return mindest + unfall;
+    const satz = .2683;
+    return Math.max(gewinnJahr * satz / (1 + satz), mindest) + unfall;
+  }
+
+  // Ein Monat durchgerechnet. Gibt alle Zwischenwerte zurück.
+  function rechne(umsatzTag, e) {
+    const brutto = umsatzTag * e.tage;
+    const netto = brutto / (1 + e.ustSatz / 100);
+    const ware = netto * e.wareProz / 100;
+    const rohertrag = netto - ware;
+    const fix = e.fix - (e.mietfrei ? e.miete : 0);
+    const gewinn = rohertrag - fix;
+
+    const gJahr = gewinn * 12;
+    const svsJ = svsJahr(gJahr);
+    const nachSvs = gJahr - svsJ;
+    const gfb = Math.max(0, Math.min(nachSvs, 33000)) * .15;
+    const estJ = est(nachSvs - gfb);
+    const nettoJahr = gJahr - svsJ - estJ;
+
+    return {
+      brutto, netto, ware, rohertrag, fix, gewinn,
+      svs: svsJ / 12, est: estJ / 12, uebrig: nettoJahr / 12,
+    };
+  }
+
+  function lies() {
+    const e = {};
+    felder.forEach((f) => { e[f] = parseFloat(g(f).value) || 0; });
+    return e;
+  }
+
+  function malen() {
+    const e = lies();
+    const r = rechne(e.umsatzTag, e);
+
+    // --- Hauptzahl ---
+    g('netto').textContent = eur(r.uebrig);
+    g('netto2').textContent = eur(r.uebrig);
+    g('grossBox').className = 'gross' + (r.uebrig < 0 ? ' warn' : '');
+    g('nettoHint').textContent = r.uebrig < 0
+      ? 'pro Monat – der Laden kostet derzeit Geld'
+      : 'pro Monat, aus ' + eur(e.umsatzTag) + ' Umsatz am Tag';
+
+    // --- Rechenweg ---
+    g('umMonat').textContent = eur(r.brutto);
+    g('umNetto').textContent = eur(r.netto);
+    g('ware').textContent = eur(r.ware);
+    g('rohertrag').textContent = eur(r.rohertrag);
+    g('fixAus').textContent = eur(r.fix);
+    g('gewinn').textContent = eur(r.gewinn);
+    g('svs').textContent = eur(r.svs);
+    g('est').textContent = eur(r.est);
+
+    // --- Break-even: Rohertrag deckt genau die Fixkosten ---
+    const marge = 1 - e.wareProz / 100;
+    const be = e.tage > 0 && marge > 0
+      ? (r.fix / marge) * (1 + e.ustSatz / 100) / e.tage : 0;
+    g('breakeven').textContent = eur(be);
+
+    // --- Zielumsatz: solange erhöhen, bis das Wunsch-Netto erreicht ist ---
+    let ziel = 0;
+    for (let u = 0; u <= 5000; u += 1) {
+      if (rechne(u, e).uebrig >= e.wunsch) { ziel = u; break; }
+    }
+    g('ziel').textContent = ziel ? eur(ziel) : '> 5.000 €';
+
+    // --- Die Lücke, umgerechnet in Reparaturen ---
+    const zielR = rechne(ziel, e);
+    const fehltRohertrag = Math.max(0, zielR.rohertrag - r.rohertrag);
+    const repRohertrag = (e.repPreis / (1 + e.ustSatz / 100)) * e.repMarge / 100;
+    const repMonat = repRohertrag > 0 ? fehltRohertrag / repRohertrag : 0;
+    const repTag = e.tage > 0 ? repMonat / e.tage : 0;
+
+    if (r.uebrig >= e.wunsch) {
+      g('luecke').textContent = 'Nichts – Ziel erreicht';
+      g('lueckeText').innerHTML = 'Bei <b>' + eur(e.umsatzTag) + '</b> Umsatz am Tag bleiben '
+        + '<b>' + eur(r.uebrig) + '</b> im Monat übrig. Das liegt über deinem Wunsch von '
+        + eur(e.wunsch) + '.';
+    } else {
+      g('luecke').textContent = repTag.toFixed(1).replace('.', ',') + ' Reparaturen pro Tag';
+      g('lueckeText').innerHTML =
+        'Von <b>' + eur(e.umsatzTag) + '</b> auf <b>' + eur(ziel) + '</b> Umsatz am Tag fehlen '
+        + '<b>' + eur(ziel - e.umsatzTag) + '</b> täglich. Über Zubehör wären das viele kleine '
+        + 'Verkäufe – über Reparaturen sind es <b>' + repTag.toFixed(1).replace('.', ',')
+        + ' pro Tag</b> beziehungsweise <b>' + Math.ceil(repMonat) + ' im Monat</b> '
+        + 'zu je ' + eur(e.repPreis) + '.';
+    }
+
+    // --- Szenarientabelle ---
+    const reihen = [150, 200, 250, 300, 350, 400, 450, 500, 600];
+    if (!reihen.includes(Math.round(e.umsatzTag)) && e.umsatzTag > 0) {
+      reihen.push(Math.round(e.umsatzTag));
+      reihen.sort((a, b) => a - b);
+    }
+    g('tabelle').innerHTML = reihen.map((u) => {
+      const x = rechne(u, e);
+      const ist = Math.round(e.umsatzTag) === u;
+      const kl = x.uebrig >= e.wunsch ? 'pos' : (x.uebrig < 0 ? 'neg' : '');
+      return '<tr class="' + (ist ? 'ist' : '') + '">'
+        + '<td>' + eur(u) + '</td>'
+        + '<td>' + eur(x.rohertrag) + '</td>'
+        + '<td>' + eur(x.gewinn) + '</td>'
+        + '<td class="' + kl + '">' + eur(x.uebrig) + '</td>'
+        + '</tr>';
+    }).join('');
+  }
+
+  felder.forEach((f) => {
+    g(f).addEventListener('input', malen);
+    g(f).addEventListener('change', malen);
+  });
+  malen();
+})();
+</script>
+</body>
+</html>
