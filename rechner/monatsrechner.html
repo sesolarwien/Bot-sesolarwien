@@ -112,6 +112,21 @@
     .duo { grid-template-columns: 1fr; }
     .feld input[type=number] { width: 92px; }
     .gross .zahl { font-size: 34px; }
+    /* Am Handy muss die Vier-Spalten-Tabelle in die Karte passen,
+       sonst scrollt die ganze Seite seitwärts. */
+    .card { padding: 16px 13px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 3px; }
+  }
+
+  /* Auf sehr schmalen Geräten fällt die Rohertrags-Spalte weg. Umsatz,
+     Gewinn und Netto sind die drei Zahlen, auf die es ankommt – der
+     Rohertrag steht ohnehin im Rechenweg darüber. */
+  @media (max-width: 400px) {
+    body { padding-left: 12px; padding-right: 12px; }
+    th:nth-child(2), td:nth-child(2) { display: none; }
+    .feld input[type=number] { width: 84px; }
+    .feld { gap: 8px; }
   }
 </style>
 </head>
@@ -153,7 +168,7 @@
     </div>
 
     <div class="feld">
-      <label>Fixkosten im Monat <small>Miete, Strom, Internet, Versicherung, Steuerberater, Kassa, Werbung</small></label>
+      <label>Fixkosten im Monat <small>Alles zusammen: Miete, Strom, Internet, Versicherung, Steuerberater, Kassa, Werbung, SVS</small></label>
       <input type="number" id="fix" value="3600" min="0" step="50" />
       <span class="einheit">€</span>
     </div>
@@ -161,6 +176,12 @@
     <div class="feld">
       <label>Davon Miete <small>Für die mietfreien Monate zum Ausschalten</small></label>
       <input type="number" id="miete" value="1200" min="0" step="50" />
+      <span class="einheit">€</span>
+    </div>
+
+    <div class="feld">
+      <label>Davon SVS <small>Was dir die SVS derzeit vorschreibt – steht auf der Vorschreibung</small></label>
+      <input type="number" id="svsDrin" value="200" min="0" step="10" />
       <span class="einheit">€</span>
     </div>
 
@@ -197,11 +218,20 @@
     <div class="zeile"><span>Umsatz netto, ohne USt</span><b id="umNetto">–</b></div>
     <div class="zeile minus"><span>− Wareneinsatz</span><b id="ware">–</b></div>
     <div class="zeile"><span>= Rohertrag</span><b id="rohertrag">–</b></div>
-    <div class="zeile minus"><span>− Fixkosten</span><b id="fixAus">–</b></div>
+    <div class="zeile minus"><span>− Fixkosten <em id="fixNote" style="font-style:normal"></em></span><b id="fixAus">–</b></div>
     <div class="zeile"><span>= Gewinn vor SVS und Steuer</span><b id="gewinn">–</b></div>
-    <div class="zeile minus"><span>− SVS (Sozialversicherung)</span><b id="svs">–</b></div>
+    <div class="zeile minus"><span>− SVS, richtig gerechnet <em style="font-style:normal">(26,83 % vom Gewinn)</em></span><b id="svs">–</b></div>
     <div class="zeile minus"><span>− Einkommensteuer</span><b id="est">–</b></div>
     <div class="zeile summe"><span>Bleibt übrig</span><b id="netto2">–</b></div>
+  </div>
+
+  <!-- ============ SVS-RÜCKSTELLUNG ============ -->
+  <div class="card" id="rueckCard" style="border-color:#fed7aa;background:#fffbeb">
+    <h2 style="color:#b45309">Rücklage für die SVS</h2>
+    <div class="zeile"><span>SVS, die du derzeit zahlst</span><b id="svsIst">–</b></div>
+    <div class="zeile"><span>SVS, die dein Gewinn auslöst</span><b id="svsSoll">–</b></div>
+    <div class="zeile summe"><span>Monatlich zur Seite legen</span><b id="svsLuecke" style="color:#b45309">–</b></div>
+    <p class="fuss" style="margin-top:14px" id="rueckText">–</p>
   </div>
 
   <!-- ============ DIE LÜCKE ============ -->
@@ -244,6 +274,13 @@
   <div class="card">
     <h2>Zum Mitdenken</h2>
     <p class="fuss">
+      <b>Die SVS steht absichtlich zweimal da.</b> Oben der Betrag, den du
+      heute zahlst – das ist ein vorläufiger Mindestbeitrag. Unten der
+      Betrag, den dein Gewinn auslöst. Die Differenz kommt später als
+      Nachbemessung. Damit die SVS nicht doppelt in der Rechnung steht,
+      wird der Betrag aus den Fixkosten herausgerechnet.
+    </p>
+    <p class="fuss">
       <b>SVS und Steuer sind geschätzt.</b> Gerechnet mit 26,83 % SVS,
       15 % Gewinnfreibetrag und dem Einkommensteuertarif 2026. Die
       genauen Werte hat der Steuerberater – für die Richtung reicht es.
@@ -269,7 +306,7 @@
 <script>
 (function () {
   const g = (id) => document.getElementById(id);
-  const felder = ['umsatzTag','tage','ustSatz','wareProz','fix','miete','mietfrei','wunsch','repPreis','repMarge'];
+  const felder = ['umsatzTag','tage','ustSatz','wareProz','fix','miete','svsDrin','mietfrei','wunsch','repPreis','repMarge'];
   const eur = (n) => Math.round(n).toLocaleString('de-AT') + ' €';
 
   // Einkommensteuertarif 2026 (Näherung, Grenzen indexiert)
@@ -297,12 +334,17 @@
   }
 
   // Ein Monat durchgerechnet. Gibt alle Zwischenwerte zurück.
+  //
+  // Wichtig: die SVS-Beiträge, die in den Fixkosten mitgezählt sind,
+  // werden hier herausgerechnet. Sonst stünde die SVS zweimal in der
+  // Rechnung – einmal als Fixkosten und einmal als eigene Zeile. Was
+  // die SVS laut Gewinn tatsächlich kostet, rechnet svsJahr() aus.
   function rechne(umsatzTag, e) {
     const brutto = umsatzTag * e.tage;
     const netto = brutto / (1 + e.ustSatz / 100);
     const ware = netto * e.wareProz / 100;
     const rohertrag = netto - ware;
-    const fix = e.fix - (e.mietfrei ? e.miete : 0);
+    const fix = e.fix - (e.mietfrei ? e.miete : 0) - e.svsDrin;
     const gewinn = rohertrag - fix;
 
     const gJahr = gewinn * 12;
@@ -345,11 +387,29 @@
     g('gewinn').textContent = eur(r.gewinn);
     g('svs').textContent = eur(r.svs);
     g('est').textContent = eur(r.est);
+    g('fixNote').textContent = e.svsDrin > 0
+      ? '(ohne die ' + eur(e.svsDrin) + ' SVS, die unten eigens stehen)' : '';
 
-    // --- Break-even: Rohertrag deckt genau die Fixkosten ---
+    // --- SVS-Rücklage: was vorgeschrieben ist gegen das, was der Gewinn auslöst ---
+    const luecke = r.svs - e.svsDrin;
+    g('svsIst').textContent = eur(e.svsDrin);
+    g('svsSoll').textContent = eur(r.svs);
+    g('svsLuecke').textContent = luecke > 0 ? eur(luecke) : '0 €';
+    g('rueckText').innerHTML = luecke > 0
+      ? 'Die SVS schreibt dir derzeit <b>' + eur(e.svsDrin) + '</b> im Monat vor – ein '
+        + 'vorläufiger Mindestbeitrag, weil sie deinen Gewinn noch nicht kennt. Dein Gewinn '
+        + 'löst aber <b>' + eur(r.svs) + '</b> aus. Sobald der erste Steuerbescheid bei der SVS '
+        + 'liegt, wird nachbemessen: <b>' + eur(luecke * 12) + ' für ein Jahr</b>. '
+        + 'Dieses Geld ist nicht dein Gewinn, auch wenn es am Konto liegt. '
+        + 'Leg <b>' + eur(luecke) + ' jeden Monat</b> auf ein eigenes Konto.'
+      : 'Deine Vorschreibung deckt den Gewinn ab – hier droht keine Nachzahlung.';
+
+    // --- Break-even: Rohertrag deckt alles, was tatsächlich hinausgeht,
+    //     also die Fixkosten samt der laufenden SVS-Vorschreibung ---
     const marge = 1 - e.wareProz / 100;
+    const kasse = r.fix + e.svsDrin;
     const be = e.tage > 0 && marge > 0
-      ? (r.fix / marge) * (1 + e.ustSatz / 100) / e.tage : 0;
+      ? (kasse / marge) * (1 + e.ustSatz / 100) / e.tage : 0;
     g('breakeven').textContent = eur(be);
 
     // --- Zielumsatz: solange erhöhen, bis das Wunsch-Netto erreicht ist ---
