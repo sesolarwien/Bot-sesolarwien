@@ -37,6 +37,10 @@ const ECON = {
   batteryKwh:          num(process.env.BATTERY_KWH, 8),            // typ. Heimspeicher
   batteryCostPerKwh:   num(process.env.BATTERY_COST_PER_KWH, 800), // €/kWh schluesselfertig
   selfWithBattery:     num(process.env.SELF_CONSUMPTION_BATTERY, 0.65), // 55-70 % mit Speicher
+  // Finanzierungs-Rechenbeispiel (NUR Illustration, kein Kreditangebot!)
+  // Typischer oesterr. Sanierungs-/Energiekredit 2025/26: ~5 % auf 15 Jahre.
+  financeRate:  num(process.env.FINANCE_RATE, 0.05),
+  financeYears: num(process.env.FINANCE_YEARS, 15),
 };
 
 // Termin-Buchung: kostenloser Formular-Dienst Web3Forms (kein eigener Server nötig).
@@ -144,6 +148,21 @@ async function renderSite(p) {
   .stat .v{font-size:24px;font-weight:800}
   .stat .v.green{color:var(--green-d)}
   .stat .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+  /* Finanzierungs-Block: "zahlt sich fast selbst" */
+  section.fin{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #bbf7d0;
+    border-radius:18px;padding:26px;margin:24px 0}
+  section.fin .fin-head h2{margin:0 0 6px;font-size:20px}
+  section.fin .fin-head p{margin:0 0 20px;color:#3f6212;font-size:14.5px}
+  .fin-grid{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+  .fin-b{background:#fff;border:1px solid #d1fae5;border-radius:14px;padding:16px 18px;
+    text-align:center;min-width:150px;flex:1}
+  .fin-b.hl{border:2px solid var(--green);box-shadow:0 6px 18px rgba(22,163,74,.15)}
+  .fin-v{font-size:25px;font-weight:800;line-height:1.1}
+  .fin-v.green{color:var(--green-d)}
+  .fin-l{font-size:13px;font-weight:600;margin-top:5px}
+  .fin-s{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .fin-op{font-size:26px;font-weight:700;color:#86a893;padding:0 2px}
+  .fin-note{font-size:12px;color:#53684f;margin:18px 0 0;line-height:1.55}
   section.calc{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin:24px 0}
   section.calc h2{margin:0 0 4px;font-size:20px}
   section.calc .sub{color:var(--muted);font-size:14px;margin-bottom:20px}
@@ -201,6 +220,13 @@ async function renderSite(p) {
     .stat{padding:14px}
     .stat .v{font-size:20px}
     section.calc{padding:18px}
+    section.fin{padding:18px}
+    .fin-grid{gap:6px}
+    .fin-b{min-width:0;padding:12px 10px}
+    .fin-v{font-size:19px}
+    .fin-l{font-size:11.5px}
+    .fin-s{font-size:10px}
+    .fin-op{font-size:18px;padding:0}
     .row{flex-wrap:wrap;gap:8px}
     .row label{flex:0 0 100%;font-size:13px}
     .row input[type=range]{flex:1}
@@ -234,6 +260,35 @@ async function renderSite(p) {
       <div class="stat"><div class="v">€ ${nf(cost)}</div><div class="l">Investition</div></div>
       <div class="stat"><div class="v green">€ ${nf(p.annual_savings_eur)}</div><div class="l">Ersparnis / Jahr</div></div>
     </div>
+
+    <section class="fin">
+      <div class="fin-head">
+        <h2>Muss ich € ${nf(cost)} auf den Tisch legen?</h2>
+        <p>Nein — die meisten finanzieren. Und dann trägt sich die Anlage fast von selbst:</p>
+      </div>
+      <div class="fin-grid">
+        <div class="fin-b">
+          <div class="fin-v" id="fRate">–</div>
+          <div class="fin-l">Monatsrate</div>
+          <div class="fin-s">${ECON.financeYears} Jahre · ${String(ECON.financeRate*100).replace('.',',')} % Zinsen</div>
+        </div>
+        <div class="fin-op">–</div>
+        <div class="fin-b">
+          <div class="fin-v green" id="fSave">–</div>
+          <div class="fin-l">Stromersparnis</div>
+          <div class="fin-s">pro Monat</div>
+        </div>
+        <div class="fin-op">=</div>
+        <div class="fin-b hl">
+          <div class="fin-v" id="fNet">–</div>
+          <div class="fin-l">Ihr Eigenaufwand</div>
+          <div class="fin-s">pro Monat</div>
+        </div>
+      </div>
+      <p class="fin-note">Nach ${ECON.financeYears} Jahren ist die Anlage abbezahlt — der Strom läuft aber weiter
+      (Solarmodule halten typischerweise 25–30 Jahre). <b>Unverbindliches Rechenbeispiel,
+      kein Kredit- oder Finanzierungsangebot.</b> Konditionen erhalten Sie von Ihrer Bank.</p>
+    </section>
 
     <section class="calc">
       <h2>Ihr persönlicher Spar-Rechner</h2>
@@ -347,7 +402,14 @@ async function renderSite(p) {
   var CONSUMPTION = ${ECON.annualConsumption};           // Haushaltsverbrauch kWh/Jahr
   var BATTERY_COST = ${ECON.batteryKwh * ECON.batteryCostPerKwh};
   var BATTERY_SELF = ${ECON.selfWithBattery};            // Eigenverbrauch mit Speicher
-  function eur(n){return '€ ' + new Intl.NumberFormat('de-AT').format(Math.round(n));}
+  var FIN_RATE  = ${ECON.financeRate};                   // Zinssatz p.a. (Rechenbeispiel)
+  var FIN_YEARS = ${ECON.financeYears};                  // Laufzeit in Jahren
+  function eur(n){return '€ ' + new Intl.NumberFormat('de-DE').format(Math.round(n));}
+  // Annuitaet: monatliche Rate fuer Kreditsumme P
+  function monthlyRate(P){
+    var r = FIN_RATE/12, n = FIN_YEARS*12;
+    return r > 0 ? P*r/(1-Math.pow(1+r,-n)) : P/n;
+  }
   function calc(){
     var price = +document.getElementById('price').value;
     var self  = +document.getElementById('self').value/100;
@@ -372,6 +434,23 @@ async function renderSite(p) {
     document.getElementById('rSave').textContent = eur(save);
     document.getElementById('rPay').textContent  = pay>0 ? pay.toFixed(1).replace('.',',') + ' Jahre' : '–';
     document.getElementById('r20').textContent   = eur(save*20 - (batt?BATTERY_COST:0));
+
+    // Finanzierungs-Block: Rate - Ersparnis = echter Eigenaufwand pro Monat
+    var rate = monthlyRate(cost);
+    var saveM = save/12;
+    var net = rate - saveM;
+    document.getElementById('fRate').textContent = eur(rate);
+    document.getElementById('fSave').textContent = eur(saveM);
+    var netEl = document.getElementById('fNet');
+    if (net <= 0) {
+      netEl.textContent = '€ 0';
+      netEl.className = 'fin-v green';
+      netEl.nextElementSibling.textContent = 'Zahlt sich selbst';
+    } else {
+      netEl.textContent = eur(net);
+      netEl.className = 'fin-v';
+      netEl.nextElementSibling.textContent = 'Ihr Eigenaufwand';
+    }
   }
   ['price','self','feed','batt'].forEach(function(id){
     document.getElementById(id).addEventListener('input', calc);
@@ -449,7 +528,7 @@ function fmtAz(a){
   if (a > 202 && a < 247) return 'Südwest';
   return a + '°';
 }
-function nf(n){ return n == null ? '–' : new Intl.NumberFormat('de-AT').format(Math.round(n)); }
+function nf(n){ return n == null ? '–' : new Intl.NumberFormat('de-DE').format(Math.round(n)); }
 function num(v,d){ const n=Number(v); return Number.isFinite(n)?n:d; }
 function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
