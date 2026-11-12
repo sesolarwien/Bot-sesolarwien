@@ -5,6 +5,49 @@ Ansprechpartner, Gebiet) — keine erkennbaren Massen-Mails.
 
 Platzhalter: [Firma] [Name] [Gebiet] [X] [Demo-Link] [DeinName] [Telefon] [E-Mail]
 
+**Dein Demo-Link:** https://sesolarwien.github.io/Bot-sesolarwien/
+
+---
+
+## ⭐ FERTIG ZUM KOPIEREN — nur die **fetten** Stellen ersetzen
+
+**Betreff:** Exklusive Solar-Termine mit geprüftem Dach – für **[Firmenname]**
+
+```
+Guten Tag Herr/Frau [Nachname],
+
+kurz und konkret: Ich schreibe Einfamilienhaus-Besitzer in [Bezirk/Ort]
+per Post an – aber nicht mit Werbung, sondern mit einem Bild ihres
+eigenen Dachs, auf dem bereits eine Solaranlage zu sehen ist. Dazu die
+berechneten Zahlen für genau dieses Dach: Anlagengröße, Ertrag,
+Ersparnis, Amortisation.
+
+Wer darauf reagiert, hat sich mit dem Thema schon beschäftigt. Diese
+Beratungstermine gebe ich exklusiv an einen Installateur pro Region
+weiter.
+
+So sieht es beim Hausbesitzer aus:
+https://sesolarwien.github.io/Bot-sesolarwien/
+
+- Exklusiv – kein Weiterverkauf an Ihre Mitbewerber
+- Dach vorab mit echten Vermessungsdaten geprüft
+- Sie zahlen nur für Termine, die tatsächlich stattfinden
+
+Für den Start würde ich Ihnen die ersten zwei Termine kostenlos
+überlassen, damit Sie sich selbst ein Bild machen können.
+
+Hätten Sie diese Woche 10 Minuten für ein kurzes Telefonat?
+
+Beste Grüße
+[Dein Name]
+[Markenname] · [Telefon] · [E-Mail]
+```
+
+> 💡 **Wichtig:** Ruf **1–2 Tage nach der Mail an.** Die Mail allein bringt
+> selten eine Antwort — sie ist nur der Grund für den Anruf:
+> *„Ich hab Ihnen Montag eine Mail geschickt wegen Solar-Terminen…"*
+> Der Leitfaden dafür: **TELEFON-LEITFADEN.md**
+
 ---
 
 ## Betreffzeilen (kurz + konkret — entscheiden über die Öffnungsrate)
