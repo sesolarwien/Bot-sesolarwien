@@ -5,3 +5,6 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Fertige ZIP-Pakete werden aus dem Arbeitsstand erzeugt
+pakete/
