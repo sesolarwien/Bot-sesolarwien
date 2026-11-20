@@ -44,8 +44,17 @@ Die Grundschrift kommt aus `../fonts.css`.
 ```bash
 cd post
 node render.js   # erzeugt alle sechs PNG und prüft auf Überläufe
-node pdf.js      # erzeugt die beiden A4-PDF
+python3 pdf.py       # legt die beiden Flyer-PNG als A4-PDF an
+python3 pdf-pruefen.py   # prüft: eine Seite, A4, randlos
 ```
+
+**Warum das PDF aus dem PNG gebaut wird:** Chromium wertet beim
+PDF-Druck `-webkit-background-clip: text` nicht aus. Der Neon-Verlauf,
+der nur in den Buchstaben von PHONETASTIC stehen soll, lief dadurch über
+die ganze Seite, und der Schriftzug war auf dem Verlauf fast unsichtbar.
+Im PNG stimmt die Darstellung, also wird das PNG auf die A4-Seite
+gelegt. 2480 × 3508 px bei 300 dpi sind genau 210 × 297 mm – da wird
+nichts umgerechnet und nichts skaliert.
 
 `render.js` meldet, wenn Inhalt über die Leinwand hinausragt oder Text
 abgeschnitten wird – nach jeder Textänderung einmal laufen lassen.
