@@ -1,57 +1,73 @@
 # 🛠️ Aktueller Auftrag für Claude auf dem Mac
 
 > Diese Datei ist die Arbeitsanweisung. Wenn du sie liest: führ sie aus.
-> Danach den erledigten Teil hier abhaken.
 
 ---
 
-## Ziel
+## Ausgangslage
 
-Die öffentliche Demo (`docs/`) versandfertig machen, damit sie an
-Solar-Installateure geschickt werden kann. Sie ist aktuell veraltet
-und teilweise unbrauchbar.
+Der bisherige Mac-Ordner `~/Downloads/Bot--claude-modest-hopper-6U1Xe`
+ist ein **ZIP-Download ohne Git** und mehrere Monate alt. Deshalb fehlen
+dort die neueren Workflows (13, restore-from-docs) und der
+Finanzierungs-Block in Workflow 4.
 
-## Ausgangslage (geprüft am 27.11.)
+Der aktuelle Stand liegt auf GitHub:
+**https://github.com/sesolarwien/Bot-sesolarwien**
+Branch: **`claude/modest-hopper-6U1Xe`** (nicht main!)
 
-**Problem 1 — unrealistische Anlagengrößen.** Vier Seiten zeigen
-38, 42, 57 und **95 kWp**. Das sind keine Einfamilienhäuser, sondern
-Wohnblöcke, Gewerbe und eine Baustelle. Diese Werte stammen aus der
-Zeit vor dem `MAX_HOME_KWP`-Deckel in Workflow 1. Ein Installateur
-erkennt das sofort — Glaubwürdigkeit weg.
-
-**Problem 2 — kein Finanzierungs-Block.** Keine Seite zeigt den neuen
-Block „Monatsrate − Stromersparnis = Eigenaufwand". Der kommt über
-Workflow 4.
-
-**Problem 3 — Render-Qualität schwankt.** Bei vielen Häusern liegen
-die Panels nicht auf dem Zieldach, sondern über Nachbardächern,
-Straßen oder einer Baustelle.
+**Die gerenderten Dachbilder sind NICHT verloren.** Sie stecken als
+Base64 in den Seiten unter `docs/` und werden von
+`workflows/restore-from-docs.mjs` wieder herausgeholt. Es muss also
+nichts neu gerendert werden (spart fal.ai-Guthaben).
 
 ---
 
 ## Aufgaben
 
-- [ ] **1.** Prüfen, ob in `output/prospects.json` noch die alten
-      Wirtschaftlichkeitswerte stehen (38/42/57/95 kWp). Wenn ja: die
-      betroffenen Häuser mit **Workflow 1** neu berechnen, damit der
-      kWp-Deckel und die korrigierte Eigenverbrauchs-Logik greifen.
-      Achtung: Workflow 1 überschreibt nur `<slug>.png`, die
-      gerenderten Bilder (`<slug>-rendered.png`) bleiben erhalten.
+- [ ] **1. Frisch klonen** (in den Home-Ordner, als `solar`):
 
-- [ ] **2.** Microsites neu bauen:
-      `node workflows/04-build-microsite.mjs`
-      Danach stichprobenartig prüfen, dass der Finanzierungs-Block
-      drin ist (im HTML nach `Monatsrate` suchen).
+      cd ~
+      git clone -b claude/modest-hopper-6U1Xe https://github.com/sesolarwien/Bot-sesolarwien solar
+      cd solar/solar-leads
 
-- [ ] **3.** Demo-Bild für die Akquise-Mails erzeugen:
+- [ ] **2. ⚠️ WICHTIG: Die `.env` mitnehmen.** Sie enthält die API-Keys
+      und liegt absichtlich nicht auf GitHub. Aus dem alten Ordner kopieren:
+
+      cp ~/Downloads/Bot--claude-modest-hopper-6U1Xe/solar-leads/.env ~/solar/solar-leads/.env
+
+      Falls dort keine `.env` liegt: suchen mit
+      `find ~ -name ".env" -path "*solar-leads*"`.
+      Wenn es wirklich keine gibt → Semih fragen, nicht weitermachen.
+      Ohne `GOOGLE_MAPS_API_KEY` schlägt Schritt 5 fehl.
+
+- [ ] **3. Pakete installieren:**  `npm install`
+
+- [ ] **4. Bilder zurückholen:**  `node workflows/restore-from-docs.mjs`
+      Erwartet: 15 Häuser, 30 PNG-Dateien, `output/adressen.txt`.
+
+- [ ] **5. Wirtschaftlichkeit neu berechnen.** Die alten Werte (bis
+      95 kWp) stammen aus der Zeit vor dem `MAX_HOME_KWP`-Deckel:
+
+      while IFS= read -r a; do node workflows/01-fetch-property.mjs "$a"; done < output/adressen.txt
+
+      Danach prüfen: In `output/prospects.json` darf **kein**
+      `system_size_kwp` über ~12 stehen.
+      (Workflow 1 überschreibt nur `<slug>.png` — die `-rendered.png`
+      bleiben erhalten. Das ist so gewollt.)
+
+- [ ] **6. Microsites neu bauen:**  `node workflows/04-build-microsite.mjs`
+      Kontrolle: im erzeugten HTML muss `Monatsrate` vorkommen
+      (das ist der neue Finanzierungs-Block).
+
+- [ ] **7. Demo-Bild für die Akquise-Mails:**
       `node workflows/13-email-demo.mjs`
-      Ergebnis: `output/<haus>-email.jpg` — Vorher/Nachher nebeneinander.
+      Ergebnis: `output/<haus>-email.jpg` (Vorher/Nachher nebeneinander).
 
-- [ ] **4.** **Demo ausmisten.** Nur die **5 überzeugendsten** Häuser
-      bleiben in `docs/`. Kriterien:
-      - echtes Einfamilienhaus (kein Wohnblock, kein Gewerbe)
-      - Panels sitzen sauber auf dem **Zieldach**, nicht auf
-        Nachbarhäusern oder der Straße
+- [ ] **8. Demo ausmisten.** Nur die **5 überzeugendsten** Häuser kommen
+      nach `docs/`. Kriterien:
+      - echtes Einfamilienhaus (kein Wohnblock, kein Gewerbe, keine Baustelle)
+      - Panels sitzen sauber auf dem **Zieldach**, nicht auf Nachbarhäusern
+        oder der Straße
       - realistische Anlagengröße (etwa 5–12 kWp)
 
       **Muss rein:** `himmelstrasse-45-1190-wien` (bestes Bild)
@@ -61,21 +77,21 @@ Straßen oder einer Baustelle.
       Bei den übrigen: Renders selbst anschauen und entscheiden.
       Lieber 5 gute als 15 durchwachsene.
 
-- [ ] **5.** `docs/index.html` an die verbleibenden Häuser anpassen
+- [ ] **9.** `docs/index.html` an die verbleibenden Häuser anpassen
       (keine toten Links).
 
-- [ ] **6.** Committen und pushen.
+- [ ] **10.** Committen und auf `claude/modest-hopper-6U1Xe` pushen.
 
-- [ ] **7.** Rückmeldung an Semih: Welche 5 Häuser sind übrig, und
-      laden die Seiten unter
-      `https://sesolarwien.github.io/Bot-sesolarwien/` wirklich?
+- [ ] **11.** Semih berichten: Welche 5 Häuser sind übrig? Welche kWp-Werte
+      haben sie jetzt? Laden die Seiten unter
+      `https://sesolarwien.github.io/Bot-sesolarwien/`?
 
 ---
 
 ## Hinweise
 
-- `.env` nie committen.
-- Der Branch ist `claude/modest-hopper-6U1Xe`.
+- `.env` **niemals** committen (steht in `.gitignore`).
 - Bei Push-Konflikt: `git pull --rebase`, dann erneut pushen.
-- Die gerenderten Bilder in `output/` gibt es **nur auf diesem Mac**
-  (absichtlich nicht auf GitHub). Nicht löschen.
+- Der alte Ordner `~/Downloads/Bot--claude-modest-hopper-6U1Xe` kann
+  bleiben, wo er ist — aber ab jetzt wird in `~/solar` gearbeitet.
+  Erst löschen, wenn alles oben funktioniert hat.
