@@ -81,6 +81,45 @@ Kosten ~2,7–4,5 $/Haus.
 
 ---
 
+## ⚠️ 5. Live-Demo ist veraltet — VOR dem Versand an Firmen erneuern!
+
+Geprüft am 27.11.: die 15 Seiten in `docs/` stammen aus einer alten Version.
+
+**Zwei Probleme:**
+1. **Unrealistische Anlagengrößen** auf 4 Seiten: 38 / 42 / 57 / **95 kWp**.
+   Das sind keine Einfamilienhäuser, sondern Wohnblöcke/Gewerbe. Ein
+   Installateur sieht das sofort → Glaubwürdigkeit weg. (Der `MAX_HOME_KWP`-
+   Deckel kam erst nach diesen Renders.)
+2. **Kein Finanzierungs-Block** (Monatsrate) auf irgendeiner Seite.
+
+**Render-Qualität schwankt stark** (Stichprobe aller 15):
+- Gut, Panels sauber auf dem Zieldach: **himmelstrasse-45** ⭐ (bestes Bild),
+  cobenzlgasse-40, rodauner-str-6
+- Schlecht, Panels über Nachbardächer/Straße/Baustelle verteilt:
+  kalksburger-str-34, mariahilfer-str-12, ketzergasse-14, khekgasse-20,
+  perchtoldsdorfer-str-12 + 18, hardtgasse-30, esslinger-hauptstrasse-50
+
+**To-do auf dem Mac:** Adressen auf echte Einfamilienhäuser beschränken,
+Workflow 1 + 3 + 4 neu laufen lassen, **nur die 5 besten** nach `docs/`
+kopieren. Lieber 5 überzeugende als 15 durchwachsene.
+
+---
+
+## ⚖️ 6. E-Mail-Akquise in Österreich — § 174 TKG 2021
+
+Werbe-E-Mail **ohne vorherige Zustimmung ist unzulässig — auch B2B**.
+Kein Unternehmer-Ausnahmetatbestand im Gesetz. Bis 50.000 € Strafe
+(Fernmeldebüro). Dasselbe gilt für Werbeanrufe.
+
+**Sichere Reihenfolge:** 1) Kontaktformular der Firma → 2) Telefonat, dann
+Mail auf Wunsch (= Zustimmung) → 3) erst zuletzt direkte Kalt-Mail, einzeln
+und personalisiert, nie als Serienmail. Vorher **ECG-Liste (ecg.rtr.at)**
+prüfen.
+
+Details + fertige Texte: `AKQUISE-EMAIL-KOMPLETT.md`
+
+---
+
 ## ✅ Status (Stand der Technik)
 Komplett gebaut: W1 Analyse · W2 Adressen sammeln · W3 KI-Render ·
 W4 Microsite · W5 Postkarte · W6 Angebot · W7 Video · W8 Mailing-Export ·
